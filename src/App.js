@@ -15,13 +15,6 @@ function Counter() {
   const date = new Date();
   const newDate = new Date(date.setDate(date.getDate() + count)).toDateString();
 
-  function stepDecrement() {
-    if (step > 1) setStep((s) => s - 1);
-  }
-  function stepIncrement() {
-    setStep((s) => s + 1);
-  }
-
   function countDecrement() {
     setCount((s) => s - step);
   }
@@ -37,13 +30,26 @@ function Counter() {
     <div className="center">
       <div>
         <div className="step">
-          <button onClick={stepDecrement}>-</button>
+          {/* <button onClick={stepDecrement}>-</button>
           <p className="stepCount">Steps: {step}</p>
-          <button onClick={stepIncrement}>+</button>
+          <button onClick={stepIncrement}>+</button> */}
+          <input
+            type="range"
+            min="0"
+            max="10"
+            value={step}
+            onChange={(e) => setStep(Number(e.target.value))}
+          ></input>
+          <span>{step}</span>
         </div>
         <div className="count">
           <button onClick={countDecrement}>-</button>
-          <p className="stepCount">Count: {count}</p>
+          <input
+            className="stepCount"
+            type="text"
+            value={count}
+            onChange={(e) => setCount(Number(e.target.value))}
+          ></input>
           <button onClick={countIncrement}>+</button>
         </div>
       </div>
@@ -57,7 +63,7 @@ function Counter() {
         </span>
       </div>
       <div className="reset">
-        <button onClick={reset}>Reset</button>
+        {count !== 0 ? <button onClick={reset}>Reset</button> : null}
       </div>
     </div>
   );
